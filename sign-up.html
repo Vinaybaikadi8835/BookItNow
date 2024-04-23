@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url("welcome page background.png"); /* Replace 'welcome page background.png' with your image file */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  .container {
+    background-color: aliceblue;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+  }
+  .container h2 {
+    margin-bottom: 20px;
+  }
+  .container input[type="text"], .container input[type="email"], .container input[type="password"], .container input[type="tel"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+  }
+  .container input[type="radio"] {
+    margin-right: 5px;
+  }
+  .container button {
+    background-color: #4CAF50;
+    color: aliceblue;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 100%;
+  }
+  .container button:hover {
+    background-color: #45a049;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Sign Up</h2>
+    <form id="signupForm" action="/signup" method="POST" onsubmit="return validateForm()">
+
+      <input type="text" name="fullname" placeholder="Full Name" required><br>
+      <input type="email" id="email" name="email" placeholder="Email" required><br>
+      <input type="password" id="password" name="password" placeholder="Password" required><br>
+      <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required><br>
+      <input type="tel" name="mobile" id="mobile" placeholder="Mobile Number (10 digits)" required><br>
+      <label for="customer">Customer:</label>
+      <input type="radio" id="customer" name="role" value="customer" checked>
+      <label for="vendor">Vendor:</label>
+      <input type="radio" id="vendor" name="role" value="vendor"><br>
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+  <script>
+    function validateForm() {
+      var password = document.getElementById("password").value;
+      var confirm_password = document.getElementById("confirm_password").value;
+      var mobile = document.getElementById("mobile").value;
+      var role = document.querySelector('input[name="role"]:checked').value;
+      var email = document.getElementById("email").value;
+
+      if (!/.+@.+\..+/.test(email)) {
+        alert("Invalid email format");
+        return false;
+      }
+
+      if (password !== confirm_password) {
+        alert("Passwords do not match");
+        return false;
+      }
+
+      if (mobile.length !== 10 || isNaN(mobile)) {
+        alert("Mobile number should be 10 digits");
+        return false;
+      }
+
+      // Show success message
+      alert("Signed up successfully!");
+
+      // Redirect based on role
+      if (role === 'vendor') {
+        window.location.href = 'vender login.html';
+      } else {
+        window.location.href = 'customer login.html';
+      }
+
+      return true;
+    }
+  </script>
+</body>
+</html>
